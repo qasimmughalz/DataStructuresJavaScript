@@ -19,27 +19,48 @@ class BST {
             right: null,
             left: null
         }
+        // Added Empty Check
+        if(this.root == null){
+            this.root = node
+        }
         let currNode = this.root
         let targetNode = this.root;
+
+        // It works but it will work extra and will take some extra time and space
         while (currNode.right != null && currNode.left != null) {
             if (value < currNode.value) {
-                currNode = currNode.left
+                currNode = currNode.left         // if(!currentNode.left){currentNode.left = node}
                 targetNode = currNode
             }
             else {
-                currNode = currNode.right
+                currNode = currNode.right         // if(!currentNode.right){currentNode.left = node}
                 targetNode = currNode
             }
         }
         if (value > targetNode.value) {
-            targetNode.right = node
+            targetNode.right = node              
         } else {
             targetNode.left = node
         }
 
     }
 
-
+    lookup(value){
+        let currentNode = this.root;
+        while(currentNode){                     // while there is a current node which means not null
+            if(currentNode.value === value){
+                console.log("Found at", currentNode)
+                return currentNode
+            }
+            if(value < currentNode.value){
+                currentNode = currentNode.left
+            }
+            else{
+                currentNode = currentNode.right
+            }
+        }
+        return false
+    }
 
 
     printback() {
@@ -80,10 +101,13 @@ mytree.insert(12)
 mytree.insert(15)
 mytree.insert(11)
 
-mytree.insert(14)
+mytree.insert(13)
 mytree.insert(16)
 mytree.insert(9)
-mytree.insert(13)
+mytree.insert(14)
+
+
+mytree.lookup(15)
 
 console.log(JSON.stringify(traverse(mytree.root)))
 
