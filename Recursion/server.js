@@ -51,12 +51,10 @@ const createServer = http.createServer()
 // console.log(check)
 
 
-
-
 // ========== MY SOLUTION =>  Recursion with looop  =======
 
 
-steps : 
+// steps : 
 // 1- loops from num to 0
 // 2- separate variable store the resultant value 
 // 3- if condition > 1 then do this -> fact = 1;
@@ -86,5 +84,59 @@ steps :
 // }
 
 // factLoop(4)
+
+
+
+
+
+
+// ======================== QUESTION 2 - FIBONACCU SERIES ====================
+
+// 0,1,1,2,3,5,8,13,21,34,55.....
+
+// 1- i create a looop and then 
+// when i get the indexedDB, i will simply run the loop till the index , so it does not
+
+
+// First Method
+
+// function fibonacci(index){
+// let arr = [0,1];
+// for(let i=1;i<=index;i++){
+//     arr.push(arr[i]+arr[i-1])
+// }
+// return arr[arr.length -2]
+// }
+// let check = fibonacci(5)
+// console.log(check)
+
+
+// function recFabonaci(index){
+    
+
+//     if(fab.length )
+//     recFabonaci(index +  (index-1))
+//     let fab = [0,1]
+// }
+
+
+
+
+// 0,1,1,2,3,5,8,13,21,34,55
+
+// 21,13,8,5,3,2,1,1,0
+
+
+
+// Dry Run: 
+// index-> 5
+// 1-> 5+4 = 9
+// 2-> 9+1 = 10 
+// 3-> 10+1= 
+
+
+
+
+
 
 createServer.listen(PORT, () => `Listening to the Port ${PORT}`)
