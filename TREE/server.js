@@ -83,6 +83,51 @@ class BST {
         }
         console.log("Printing:", arr)
     }
+
+
+    breadthFirstSearch(){
+        let currentNode = this.root;
+        let list = []
+        let queue = []
+
+        queue.push(currentNode)
+        while(queue.length > 0){
+             currentNode = queue.shift()
+             list.push(currentNode.value)
+            if(currentNode.left){
+                queue.push(currentNode.left)
+            }
+            if(currentNode.right){
+                queue.push(currentNode.right)
+            }
+        }
+        console.log("check BFS =", list)
+    }
+
+
+    breadthFirstSearchR(queue, list){
+
+        if(queue.length === 0){
+            console.log("Recursive BFS : ", list )
+            return list
+        }
+
+        let currentNode = queue.shift()
+        list.push(currentNode.value)
+
+            if(currentNode.left){
+                queue.push(currentNode.left)
+            }
+            if(currentNode.right){
+                queue.push(currentNode.right)
+            }
+        
+            return this.breadthFirstSearchR(queue, list)
+       
+    }
+
+
+
 }
 
 function traverse(node) {
@@ -107,9 +152,12 @@ mytree.insert(9)
 mytree.insert(14)
 
 
-mytree.lookup(15)
 
-console.log(JSON.stringify(traverse(mytree.root)))
+// mytree.lookup(15)
+// mytree.breadthFirstSearch()
+mytree.breadthFirstSearchR([mytree.root], [])
+
+// console.log(JSON.stringify(traverse(mytree.root)))
 
 
 createServer.listen(PORT, () => `Listening to the Port ${PORT}`)
