@@ -76,7 +76,6 @@ class BST {
     printfor() {
         let arr = [];
         let currNode = this.root
-        console.log("check tail", currNode)
         while (currNode != null) {
             arr.push(currNode.value)
             currNode = currNode.right
@@ -106,7 +105,6 @@ class BST {
 
 
     breadthFirstSearchR(queue, list){
-
         if(queue.length === 0){
             console.log("Recursive BFS : ", list )
             return list
@@ -121,14 +119,38 @@ class BST {
             if(currentNode.right){
                 queue.push(currentNode.right)
             }
-        
             return this.breadthFirstSearchR(queue, list)
-       
     }
 
+    DFSInOrder(node, list){
+        if(node.left){
+            return this.DFSInOrder(node.left, list)
+        }
+        list.push(node.value)
+        if(node.right){
+            return this.DFSInOrder(node.right, list)
+        }
+        console.log('DFS In-Order : ', list)
+    }
 
+    DFSpreOrder( node, list){
+        return DFSPreOrderF(node, list)
+    }
 
 }
+
+
+function DFSPreOrderF(node, list){
+    list.push(node.value)
+    if(node.left){
+        DFSPreOrderF(node.left, list)
+    }
+    if(node.right){
+        DFSPreOrderF(node.right, list)
+    }
+    return list;
+}
+
 
 function traverse(node) {
     const tree = { value: node.value }
@@ -140,22 +162,23 @@ function traverse(node) {
 }
 
 
-let mytree = new BST(10)
-mytree.insert(8)
-mytree.insert(12)
+let mytree = new BST(9)
+mytree.insert(4)
+mytree.insert(1)
+mytree.insert(6)
+mytree.insert(20)
+
 mytree.insert(15)
-mytree.insert(11)
-
-mytree.insert(13)
-mytree.insert(16)
-mytree.insert(9)
-mytree.insert(14)
+mytree.insert(170)
 
 
-
+// mytree.printfor()
+mytree.DFSInOrder(mytree.root, [])
+let DFSpreOrderArr = mytree.DFSpreOrder(mytree.root, [])
+console.log("DFS Pre Order : ", DFSpreOrderArr)
 // mytree.lookup(15)
 // mytree.breadthFirstSearch()
-mytree.breadthFirstSearchR([mytree.root], [])
+// mytree.breadthFirstSearchR([mytree.root], [])
 
 // console.log(JSON.stringify(traverse(mytree.root)))
 
