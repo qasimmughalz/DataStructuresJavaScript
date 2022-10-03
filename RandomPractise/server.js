@@ -209,7 +209,195 @@ const createServer = http.createServer()
 // que.print()
 
 
+
+
 // ===================== Stack Implementaion ================
+
+
+// class Stack{
+//     constructor(value){
+//         this.head = {
+//             value:value, 
+//             next:null
+//         }
+//         this.tail = this.head
+//     }
+
+//     Node(value){
+//         return {
+//             value:value, 
+//             next:null
+//         }
+//     }
+
+//     push(value){
+//         let node = this.Node(value)
+//         this.tail.next = node
+//         this.tail = node
+//     }
+
+//     pop(){
+//         if(!this.head){
+//             return 
+//         }
+
+//         if(this.tail === this.head){
+//             this.head = null
+//         }
+//         else{
+//             let currentNode = this.head
+//             let nextNode = currentNode.next
+//             while(nextNode.next){
+//                 currentNode = currentNode.next
+//                 nextNode = nextNode.next
+//             }
+//             this.tail = currentNode
+//             this.tail.next = null
+//         }       
+        
+//     }
+
+//         print(){
+//         let currentNode = this.head
+//         let arr=[]
+//         while(currentNode){
+//             arr.push(currentNode.value)
+//             currentNode = currentNode.next
+//         }
+//         console.log(arr)
+//     }
+// }
+
+// const stack = new Stack(3)
+// stack.push(4)
+// stack.push(5)
+// stack.push(6)
+// stack.push(7)
+// stack.push(8)
+
+// stack.pop()
+// stack.pop()
+// stack.pop()
+// stack.print()
+
+
+
+// ================= Tree Implementation =================
+
+
+class BST{
+    constructor(value){
+        this.root = {
+            value:value, 
+            left:null, 
+            right:null
+        }
+    }
+
+
+    Node(value){
+        return {
+            value:value,
+            left:null, 
+            right:null
+        }
+    }
+
+    add(value){
+        let currentNode = this.root
+        let newNode = this.Node(value)
+
+        while(currentNode.left != null && currentNode.right != null){
+            if(value > currentNode.value){
+                currentNode = currentNode.right
+            }
+            if(value < currentNode.value){
+                currentNode = currentNode.left
+            }
+        }
+
+        if(value > currentNode.value){
+            currentNode.right = newNode
+        }else{
+            currentNode.left = newNode
+        }
+    }
+
+
+    addTrue(value){
+        let newNode = this.Node(value)
+        let currentNode = this.root
+
+        while(true){
+            if(value > currentNode.value){
+                if(!currentNode.right){
+                    currentNode.right = newNode
+                    return this
+                }
+                currentNode = currentNode.right
+            }else{
+                if(!currentNode.left){
+                    currentNode.left = newNode
+                    return this
+                }
+             currentNode = currentNode.left
+            }
+        }
+    }
+
+
+    available(value){
+        let currentNode = this.root
+
+        while(true){
+            if(!currentNode){
+                console.log('Not Found')
+                return
+            }
+            if(value === currentNode.value){
+                console.log("Found Value", currentNode)
+                return
+            }
+            else{
+                if(value > currentNode.value){
+                    currentNode = currentNode.right
+                }else{
+                    currentNode = currentNode.left
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+    
+}
+
+
+// const bst = new BST(22)
+// bst.add(30)
+// bst.add(15)
+
+
+const bst = new BST(22)
+bst.addTrue(30)
+bst.addTrue(12)
+bst.addTrue(14)
+bst.addTrue(25)
+bst.addTrue(23)
+bst.addTrue(29)
+// console.log('TREE:', bst.root)
+
+
+
+bst.available(29)
 
 
 
