@@ -285,88 +285,88 @@ const createServer = http.createServer()
 // ================= Tree Implementation =================
 
 
-class BST{
-    constructor(value){
-        this.root = {
-            value:value, 
-            left:null, 
-            right:null
-        }
-    }
+// class BST{
+//     constructor(value){
+//         this.root = {
+//             value:value, 
+//             left:null, 
+//             right:null
+//         }
+//     }
 
 
-    Node(value){
-        return {
-            value:value,
-            left:null, 
-            right:null
-        }
-    }
+//     Node(value){
+//         return {
+//             value:value,
+//             left:null, 
+//             right:null
+//         }
+//     }
 
-    add(value){
-        let currentNode = this.root
-        let newNode = this.Node(value)
+//     add(value){
+//         let currentNode = this.root
+//         let newNode = this.Node(value)
 
-        while(currentNode.left != null && currentNode.right != null){
-            if(value > currentNode.value){
-                currentNode = currentNode.right
-            }
-            if(value < currentNode.value){
-                currentNode = currentNode.left
-            }
-        }
+//         while(currentNode.left != null && currentNode.right != null){
+//             if(value > currentNode.value){
+//                 currentNode = currentNode.right
+//             }
+//             if(value < currentNode.value){
+//                 currentNode = currentNode.left
+//             }
+//         }
 
-        if(value > currentNode.value){
-            currentNode.right = newNode
-        }else{
-            currentNode.left = newNode
-        }
-    }
-
-
-    addTrue(value){
-        let newNode = this.Node(value)
-        let currentNode = this.root
-
-        while(true){
-            if(value > currentNode.value){
-                if(!currentNode.right){
-                    currentNode.right = newNode
-                    return this
-                }
-                currentNode = currentNode.right
-            }else{
-                if(!currentNode.left){
-                    currentNode.left = newNode
-                    return this
-                }
-             currentNode = currentNode.left
-            }
-        }
-    }
+//         if(value > currentNode.value){
+//             currentNode.right = newNode
+//         }else{
+//             currentNode.left = newNode
+//         }
+//     }
 
 
-    available(value){
-        let currentNode = this.root
+//     addTrue(value){
+//         let newNode = this.Node(value)
+//         let currentNode = this.root
 
-        while(true){
-            if(!currentNode){
-                console.log('Not Found')
-                return
-            }
-            if(value === currentNode.value){
-                console.log("Found Value", currentNode)
-                return
-            }
-            else{
-                if(value > currentNode.value){
-                    currentNode = currentNode.right
-                }else{
-                    currentNode = currentNode.left
-                }
-            }
-        }
-    }
+//         while(true){
+//             if(value > currentNode.value){
+//                 if(!currentNode.right){
+//                     currentNode.right = newNode
+//                     return this
+//                 }
+//                 currentNode = currentNode.right
+//             }else{
+//                 if(!currentNode.left){
+//                     currentNode.left = newNode
+//                     return this
+//                 }
+//              currentNode = currentNode.left
+//             }
+//         }
+//     }
+
+
+//     available(value){
+//         let currentNode = this.root
+
+//         while(true){
+//             if(!currentNode){
+//                 console.log('Not Found')
+//                 return
+//             }
+//             if(value === currentNode.value){
+//                 console.log("Found Value", currentNode)
+//                 return
+//             }
+//             else{
+//                 if(value > currentNode.value){
+//                     currentNode = currentNode.right
+//                 }else{
+//                     currentNode = currentNode.left
+//                 }
+//             }
+//         }
+//     }
 
 
 
@@ -378,26 +378,89 @@ class BST{
 
 
     
-}
+// }
+
+
+// // const bst = new BST(22)
+// // bst.add(30)
+// // bst.add(15)
 
 
 // const bst = new BST(22)
-// bst.add(30)
-// bst.add(15)
-
-
-const bst = new BST(22)
-bst.addTrue(30)
-bst.addTrue(12)
-bst.addTrue(14)
-bst.addTrue(25)
-bst.addTrue(23)
-bst.addTrue(29)
-// console.log('TREE:', bst.root)
+// bst.addTrue(30)
+// bst.addTrue(12)
+// bst.addTrue(14)
+// bst.addTrue(25)
+// bst.addTrue(23)
+// bst.addTrue(29)
+// // console.log('TREE:', bst.root)
 
 
 
-bst.available(29)
+// bst.available(29)
+
+
+// ================== Sliding Window Problem  MAx Sub Array =============
+
+// function Slide(array , k){
+
+//     let subarray = new Array()
+//     for(let i=0; i< k ; i++){
+//         subarray.push(array[i])
+//     }
+//     let max = 0;
+//     for(let i=0;i <= array.length - k; i++){
+//         let sum = array[i];
+//         for(let j=i+1 ; j < i+k ;j++){
+//             sum = sum + array[j]
+//         }
+//         if(max < sum){
+//             max = sum
+//         }
+//     }
+    
+//     console.log("Final MAX IS ", max)
+// }
+
+// Slide([1, 4, 2, 10, 23, 3, 1, 0, 20], 4)
+
+
+// ================== Optimized Sliding Window MAx Sub Array =========
+
+// function optimizeSubarray(array , k){
+
+//     let sum = 0;
+//     let max = 0;
+//     for(let i=0;i<k;i++){
+//         sum += array[i]
+//     }
+//     max = sum;
+//     let slider = k
+
+//     for(let j=0; j < array.length -k; j++){
+//         sum = (sum - array[j]) + array[slider]
+//         if(sum > max){
+//             max = sum
+//         }
+//         slider++
+//     }
+//     console.log('Max sum is :', max)
+// }
+
+// optimizeSubarray([1, 4, 2, 10, 23, 3, 1, 0, 20], 4)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
