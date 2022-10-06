@@ -1,5 +1,6 @@
 
 const http = require('http')
+const nodemon = require('nodemon')
 const PORT = process.env.PORT || 8000
 const createServer = http.createServer()
 
@@ -451,16 +452,219 @@ const createServer = http.createServer()
 
 
 
+// class CircularLinkedList{
+//     constructor(value){
+//         this.head = {
+//             value:value, 
+//             next:this.head
+//         }
+//         this.tail = this.head
+//     }
+
+//     newNode(value){
+//         return {
+//             value:value, 
+//             next:this.head
+//         }
+//     }
+
+
+//     insertAtStart(value){
+//         let node = this.newNode(value)
+//         node.next = this.head
+//         this.head = node
+//         this.tail.next = this.head
+//     }
+
+//     insert(value){
+//         let node = this.newNode(value)
+//         this.tail.next = node
+//         this.tail = node
+//     }
+
+//     insertAtEnd(value){
+//         let node = this.newNode(value)
+//         this.tail.next = node
+//         this.tail = node
+//     }
+
+
+//     findPreviousNode(position, value){
+//         let currentNode = this.head
+//         for(let i=1;i<position;i++){
+//             if(currentNode.next.value === this.head.value){
+//                 this.insertAtStart(value)
+//             }
+//             currentNode = currentNode.next
+//         }
+//         return currentNode
+//     }
+
+
+//     insertAtPosition(position, value){
+//         let node = this.newNode(value)
+//         let previousNode = this.findPreviousNode(position -1, value)
+//         if(!previousNode){   
+//             return
+//         }else{
+//             node.next = previousNode.next
+//             previousNode.next = node
+//         }
+
+//     }
+
+//     print(){
+//         let currentNode = this.head
+//         let arr = []
+//         while(true){
+//             if(currentNode.next.value === this.head.value){
+//                 arr.push(currentNode.value)
+//                 console.log('Array',arr)
+//                 return false
+//             }
+//             else{
+//                 arr.push(currentNode.value)
+//                 currentNode = currentNode.next
+//             }
+//         }
+//     }
+
+// }
+
+
+// const LL = new CircularLinkedList(10)
+// LL.insert(20)
+// LL.insert(30)
+// LL.insert(40)
+// LL.insert(50)
+// LL.insert(60)
+// LL.insert(70)
+
+// LL.insertAtStart(5)
+// LL.insertAtStart(1)
+// LL.insertAtStart(0)
+
+// LL.insertAtEnd(100)
+
+// LL.insertAtPosition(,444)
+
+
+
+// LL.print()
+
+
+
+
+// ============= Remove Dublicate in a linkedList ==================
+
+
+// class DublicateRemoveLinkedList{
+//     constructor(value){
+//         this.head = {
+//             value:value, 
+//             next:null
+//         }
+//         this.tail = this.head
+//     }
+
+//     newNode(value){
+//         return {
+//             value:value, 
+//             next:null
+//         }
+//     }
+
+//     insert(value){
+//         let node = this.newNode(value)
+//         this.tail.next = node
+//         this.tail = node
+//     }
+
+
+//     removeDubligate(){
+//         let currentNode = this.head
+//         let previousNode = null
+//         while(true){
+//             if(!currentNode.next){
+//                 previousNode.next = currentNode.next
+//                 return
+//             } else {
+//                 if(currentNode.value === currentNode.next.value){
+//                     if(!previousNode){
+//                         previousNode = currentNode
+//                     }
+//                 } else{
+//                     if(previousNode){
+//                         previousNode.next = currentNode.next
+//                         previousNode = null
+//                     }
+//                 }
+//             }
+//             currentNode = currentNode.next
+//         }
+//     }
+
+
+//     // removenode(position){
+//     //     let currentNode = this.head
+//     //     let previous  = currentNode
+//     //     for(let i=1;i<= position;i++){
+//     //         previous = currentNode
+//     //         currentNode = currentNode.next
+//     //     }
+//     //     previous.next = currentNode.next
+//     // }
+
+
+//     removeDublicateTwo(){
+//         let currentNode = this.head
+//         let nextDistinctNode = null
+//         while(currentNode){
+//             nextDistinctNode = currentNode.next
+//             while(nextDistinctNode && currentNode.value === nextDistinctNode.value){
+//                 nextDistinctNode = nextDistinctNode.next
+//             }
+//             currentNode.next = nextDistinctNode
+//             currentNode = nextDistinctNode
+//         }
+//     }
 
 
 
 
 
 
+//     print(){
+//             let currentNode = this.head
+//                 let arr = []
+//                 while(currentNode){
+//                         arr.push(currentNode.value)
+//                         currentNode = currentNode.next
+//             }
+//          console.log('LinkedList :', arr)
+//     }
+
+// }
 
 
 
 
+// const dbl = new DublicateRemoveLinkedList(1)
+
+// dbl.insert(1)
+// dbl.insert(2)
+// dbl.insert(2)
+// dbl.insert(2)
+// dbl.insert(3)
+// dbl.insert(3)
+// dbl.insert(3)
+// dbl.insert(3)
+// dbl.insert(4)
+
+
+// dbl.print()
+// dbl.removeDublicateTwo()
+// dbl.print()
 
 
 
