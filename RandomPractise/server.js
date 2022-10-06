@@ -668,7 +668,75 @@ const createServer = http.createServer()
 
 
 
+function TripppletsSumTarget(incomingarray, targetSum){
+    const array = incomingarray.sort((a,b)=> a-b)
+    let result = []
+    let MostRightPointer = 0;
+    let size = array.length
+    for(let i=0; i<array.length;i++){
+        if(array[i] >= targetSum){
+            break;
+        }
+        let lastPointer = size -1
+        MostRightPointer = i+1
+        while(MostRightPointer < lastPointer){
+            const sum = array[i] + array[MostRightPointer] + array[lastPointer]
+            if(sum > targetSum){
+                lastPointer--
+            }
+            if(sum < targetSum){
+                MostRightPointer++
+            }
+            if(sum === targetSum){
+                result.push([array[i] , array[MostRightPointer] , array[lastPointer]] )
+                MostRightPointer++;
+                lastPointer--
+            }
+        }
+    }
+   return result
+}
 
+
+
+
+// function TripppletsSumTarget(array, targetSum){
+//     let sorted = array.sort((a,b)=> a-b)
+//     let result = []
+    
+//     for(let i=0;i<array.length;i++){
+//         if(array[i] >= targetSum){
+//             console.log(array[i])
+//             break;
+//         }
+//         let start = i+1;
+//         let end = array.length -1 
+
+//         while(start < end){
+//             const sum = sorted[i] + sorted[start]+ sorted[end]
+
+//             if(sum === targetSum){
+//                 result.push([sorted[i] , sorted[start], sorted[end]])
+//                 start++;
+//                 end--
+//             }else if(sum < targetSum){
+//                 start ++
+//             }else{
+//                 end--
+//             }
+            
+//         }
+
+//     }
+
+//     console.log(result)
+   
+// }
+
+
+
+
+TripppletsSumTarget([12,3,1,2,-6,5,-8,6], 0)
 
 
 
