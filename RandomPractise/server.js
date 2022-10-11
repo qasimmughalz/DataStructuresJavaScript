@@ -1,6 +1,7 @@
 
 const http = require('http')
 const nodemon = require('nodemon')
+const { toUnicode } = require('punycode')
 const PORT = process.env.PORT || 8000
 const createServer = http.createServer()
 
@@ -668,34 +669,34 @@ const createServer = http.createServer()
 
 
 
-function TripppletsSumTarget(incomingarray, targetSum){
-    const array = incomingarray.sort((a,b)=> a-b)
-    let result = []
-    let MostRightPointer = 0;
-    let size = array.length
-    for(let i=0; i<array.length;i++){
-        if(array[i] >= targetSum){
-            break;
-        }
-        let lastPointer = size -1
-        MostRightPointer = i+1
-        while(MostRightPointer < lastPointer){
-            const sum = array[i] + array[MostRightPointer] + array[lastPointer]
-            if(sum > targetSum){
-                lastPointer--
-            }
-            if(sum < targetSum){
-                MostRightPointer++
-            }
-            if(sum === targetSum){
-                result.push([array[i] , array[MostRightPointer] , array[lastPointer]] )
-                MostRightPointer++;
-                lastPointer--
-            }
-        }
-    }
-   return result
-}
+// function TripppletsSumTarget(incomingarray, targetSum){
+//     const array = incomingarray.sort((a,b)=> a-b)
+//     let result = []
+//     let MostRightPointer = 0;
+//     let size = array.length
+//     for(let i=0; i<array.length;i++){
+//         if(array[i] >= targetSum){
+//             break;
+//         }
+//         let lastPointer = size -1
+//         MostRightPointer = i+1
+//         while(MostRightPointer < lastPointer){
+//             const sum = array[i] + array[MostRightPointer] + array[lastPointer]
+//             if(sum > targetSum){
+//                 lastPointer--
+//             }
+//             if(sum < targetSum){
+//                 MostRightPointer++
+//             }
+//             if(sum === targetSum){
+//                 result.push([array[i] , array[MostRightPointer] , array[lastPointer]] )
+//                 MostRightPointer++;
+//                 lastPointer--
+//             }
+//         }
+//     }
+//    return result
+// }
 
 
 
@@ -736,7 +737,126 @@ function TripppletsSumTarget(incomingarray, targetSum){
 
 
 
-TripppletsSumTarget([12,3,1,2,-6,5,-8,6], 0)
+// TripppletsSumTarget([12,3,1,2,-6,5,-8,6], 0)
+
+
+
+// function check(string){
+//     let i=0;
+//     let j=string.length -1;
+//     const result = PalindroneCheck(string , i, j)
+//     console.log(result)
+
+// }
+
+
+// function PalindroneCheck(string , i , j){
+//     console.log('values : ', i, j, string[i], string[j])
+//     if(string[i] != string[j]){
+//         return false
+//     }
+//     if( i === j || j <= 0 ){
+//         return true
+//     }
+
+//     i++;
+//     j--
+//     return PalindroneCheck(string, i, j)
+// }
+
+
+// ================= Finding the Caeser Cipher Encryption ============
+
+// function cipher(string, key){
+
+//     let arr = string.split('')
+//     let newarr = []
+//     console.log(arr)
+
+//     for(let i=0;i<string.length;i++){
+//         let code = string[i].charCodeAt()
+//         newarr.push(code)
+//     }
+//     for(let i=0;i<newarr.length;i++){
+//        let count =  newarr[i]+ key
+//        newarr[i] = count
+//        if(count > 122){
+//          let diff = count - 122
+//          newarr[i] = diff+96
+//        }
+//     }
+
+//     let result= newarr.map((data)=>{
+//         return String.fromCharCode(data)
+//     })
+//     let converted = result.join('')
+//     console.log(converted)
+// }   
+
+
+
+// cipher('xyz', 2)
+
+
+
+// ==================== Finding the Smallest Difference Point =========
+
+
+// function SmallestDifferennce(arrayOne, arrayTwo){
+//     let smallest = Math.abs(arrayOne[0] + arrayTwo[0])
+//     let result = [arrayOne[0], arrayTwo[0]]
+//     for(let i=0;i<arrayOne.length;i++){
+//         for(let j=0;j<arrayTwo.length;j++){
+//             let diffence = Math.abs(arrayOne[i] - arrayTwo[j])
+//             if(diffence < smallest){
+//                 smallest = diffence
+//                 result[0] = arrayOne[i]
+//                 result[1] = arrayTwo[j]
+//             }
+//         }
+//     }
+//     return result
+// }
+
+
+
+function SmallestDifferennceOptimized(arrayOne, arrayTwo){
+
+    let sortedarrayOne = arrayOne.sort((a,b)=> a-b)
+    let sortedarrayTwo = arrayTwo.sort((a,b)=> a-b)
+
+    let smallest =  Math.abs(sortedarrayOne[0] - sortedarrayTwo[0])
+    let arrayOneIndex = 0;
+    let arrayTwoIndex = 0;
+
+    let result = [sortedarrayOne[arrayOneIndex] , sortedarrayTwo[arrayTwoIndex]]
+
+    while(true){
+        if((arrayOneIndex + arrayTwoIndex) === (arrayOne.length + arrayTwo.length)){
+            console.log('Found First', result)
+            return false
+        }
+        let diff = Math.abs(sortedarrayOne[arrayOneIndex] - sortedarrayTwo[arrayTwoIndex])
+       
+       
+        if(diff < smallest){
+            smallest = diff
+            result[0] = sortedarrayOne[arrayOneIndex] 
+            result[1] = sortedarrayTwo[arrayTwoIndex]
+        }
+        
+        if(sortedarrayOne[arrayOneIndex] < sortedarrayTwo[arrayTwoIndex]){
+            arrayOneIndex++
+        }else{
+            arrayTwoIndex++
+        }
+    
+    }
+}
+
+
+SmallestDifferennceOptimized([-1, 5, 10, 20, 3], [26, 134, 135, 15, 17])
+
 
 
 
