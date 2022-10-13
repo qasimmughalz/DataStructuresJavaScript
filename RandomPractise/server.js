@@ -1,4 +1,6 @@
 
+const { time } = require('console')
+const { stat } = require('fs')
 const http = require('http')
 const nodemon = require('nodemon')
 const { toUnicode } = require('punycode')
@@ -820,42 +822,172 @@ const createServer = http.createServer()
 
 
 
-function SmallestDifferennceOptimized(arrayOne, arrayTwo){
+// function SmallestDifferennceOptimized(arrayOne, arrayTwo){
 
-    let sortedarrayOne = arrayOne.sort((a,b)=> a-b)
-    let sortedarrayTwo = arrayTwo.sort((a,b)=> a-b)
+//     let sortedarrayOne = arrayOne.sort((a,b)=> a-b)
+//     let sortedarrayTwo = arrayTwo.sort((a,b)=> a-b)
 
-    let smallest =  Math.abs(sortedarrayOne[0] - sortedarrayTwo[0])
-    let arrayOneIndex = 0;
-    let arrayTwoIndex = 0;
+//     let smallest =  Math.abs(sortedarrayOne[0] - sortedarrayTwo[0])
+//     let arrayOneIndex = 0;
+//     let arrayTwoIndex = 0;
 
-    let result = [sortedarrayOne[arrayOneIndex] , sortedarrayTwo[arrayTwoIndex]]
+//     let result = [sortedarrayOne[arrayOneIndex] , sortedarrayTwo[arrayTwoIndex]]
 
-    while(true){
-        if((arrayOneIndex + arrayTwoIndex) === (arrayOne.length + arrayTwo.length)){
-            console.log('Found First', result)
-            return false
-        }
-        let diff = Math.abs(sortedarrayOne[arrayOneIndex] - sortedarrayTwo[arrayTwoIndex])
+//     while(true){
+//         if((arrayOneIndex + arrayTwoIndex) === (arrayOne.length + arrayTwo.length)){
+//             console.log('Found First', result)
+//             return false
+//         }
+//         let diff = Math.abs(sortedarrayOne[arrayOneIndex] - sortedarrayTwo[arrayTwoIndex])
        
        
-        if(diff < smallest){
-            smallest = diff
-            result[0] = sortedarrayOne[arrayOneIndex] 
-            result[1] = sortedarrayTwo[arrayTwoIndex]
-        }
+//         if(diff < smallest){
+//             smallest = diff
+//             result[0] = sortedarrayOne[arrayOneIndex] 
+//             result[1] = sortedarrayTwo[arrayTwoIndex]
+//         }
         
-        if(sortedarrayOne[arrayOneIndex] < sortedarrayTwo[arrayTwoIndex]){
-            arrayOneIndex++
-        }else{
-            arrayTwoIndex++
-        }
+//         if(sortedarrayOne[arrayOneIndex] < sortedarrayTwo[arrayTwoIndex]){
+//             arrayOneIndex++
+//         }else{
+//             arrayTwoIndex++
+//         }
     
+//     }
+// }
+
+
+// SmallestDifferennceOptimized([-1, 5, 10, 20, 3], [26, 134, 135, 15, 17])
+
+
+
+
+
+// function moveToEnd(array, toMove ){
+
+//     let count = 0;
+//     for(let i=0;i<array.length;i++){
+//         if(array[i]=== toMove){
+//             array.splice(i, 1)
+//             i = i-1
+//             count++;
+//         }
+//     }
+//     for(let j=0;j<count;j++){
+//         array.splice(array.length , 0, toMove )
+//     }
+//     return array
+// }
+
+// function swap(left, right, array){
+//     let temp = array[left]
+//     array[left] = array[right]
+//     array[right] = temp
+//     return array
+// }
+
+// function OptimizeMoveToEnd(array , toMove){
+//     let left = 0;
+//     let right = array.length - 1;
+//     while(left< right){
+//         if(array[right] === toMove){
+//             right--;
+//         }
+//         else{
+//             if(array[left] === toMove){
+//                 swap(left, right, array)
+//             }
+//             left++
+//         }
+//     }
+//     return array
+// }
+
+
+// function OptimizeMoveToEnd(array , toMove){
+//     let left = 0;
+//     let right = array.length -1;
+//     console.log(array)
+//     while(left< right){
+//         if(array[left] === toMove){
+//             while(array[right] === toMove){
+//                 right--
+//             }
+//             swap(left , right , array)
+//             left++;
+//             right--
+//         }else{
+//             left++
+//         }
+//     }
+//     return array
+// }
+
+// OptimizeMoveToEnd([2,1,4,6,3,2,2], 2)
+
+
+
+
+function MonotonicArray(array){
+    
+    let state;
+   for(let i=0;i<array.length;i++){
+        if(!state){
+            if(array[i] > array[i+1]){
+                state = true
+           }
+           else if(array[i] < array[i+1]){
+               state = false
+           }
+           
+        }
+        else {
+            break
+        } 
+   }
+    
+    for(let i=0;i<array.length -1;i++){
+        if(state){
+            if(array[i] < array[i+1]){
+               return console.log(false)
+            }
+        }else{
+            if(array[i] > array[i+1]){
+                console.log("Checking", array[i], i)
+               return  console.log(false)
+            }
+        }
     }
+
+    if(!state){
+       console.log(true)
+    }else{
+        console.log(true)
+    }
+
 }
 
 
-SmallestDifferennceOptimized([-1, 5, 10, 20, 3], [26, 134, 135, 15, 17])
+function MonotonicArrayOptimized(array){
+    let increasing = true;
+    let decreasing = true;
+
+    for(let i=0;i<array.length -1;i++){
+        if(array[i] < array[i+1]){
+            decreasing = false
+        }
+        if(array[i] > array[i+1]){
+            increasing = false
+        }
+    }
+
+   console.log( increasing || decreasing )
+
+}
+
+MonotonicArrayOptimized( [1,2,3,5,1] )
+
+
 
 
 
