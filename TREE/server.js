@@ -123,20 +123,33 @@ class BST {
     }
 
     DFSInOrder(node, list){
-        if(node.left){
-            return this.DFSInOrder(node.left, list)
-        }
-        list.push(node.value)
-        if(node.right){
-            return this.DFSInOrder(node.right, list)
-        }
-        console.log('DFS In-Order : ', list)
+        return  DFSInorderFunction(node,list)
+        // if(node.left){
+        //      this.DFSInOrder(node.left, list)
+        // }
+        // list.push(node.value)
+        // if(node.right){
+        //      this.DFSInOrder(node.right, list)
+        // }
+        // console.log('DFS In-Order : ', list)
     }
 
     DFSpreOrder( node, list){
         return DFSPreOrderF(node, list)
     }
 
+}
+
+
+function DFSInorderFunction(node, list){
+    if(node.left){
+         DFSInorderFunction(node.left, list)
+    }
+    list.push(node.value)
+    if(node.right){
+         DFSInorderFunction(node.right, list)
+    }
+    return list
 }
 
 
@@ -163,19 +176,21 @@ function traverse(node) {
 
 
 let mytree = new BST(9)
-mytree.insert(4)
-mytree.insert(1)
 mytree.insert(6)
-mytree.insert(20)
 
-mytree.insert(15)
+
+mytree.insert(20)
+mytree.insert(7)
 mytree.insert(170)
 
+mytree.insert(15)
+mytree.insert(1)
 
-// mytree.printfor()
-mytree.DFSInOrder(mytree.root, [])
-let DFSpreOrderArr = mytree.DFSpreOrder(mytree.root, [])
-console.log("DFS Pre Order : ", DFSpreOrderArr)
+
+
+let result = mytree.DFSInOrder(mytree.root, [])
+console.log(result)
+
 // mytree.lookup(15)
 // mytree.breadthFirstSearch()
 // mytree.breadthFirstSearchR([mytree.root], [])

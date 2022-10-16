@@ -4,6 +4,8 @@ const { stat } = require('fs')
 const http = require('http')
 const nodemon = require('nodemon')
 const { toUnicode } = require('punycode')
+const { start } = require('repl')
+const { resourceLimits } = require('worker_threads')
 const PORT = process.env.PORT || 8000
 const createServer = http.createServer()
 
@@ -928,66 +930,189 @@ const createServer = http.createServer()
 
 
 
-function MonotonicArray(array){
+// function MonotonicArray(array){
     
-    let state;
-   for(let i=0;i<array.length;i++){
-        if(!state){
-            if(array[i] > array[i+1]){
-                state = true
-           }
-           else if(array[i] < array[i+1]){
-               state = false
-           }
+//     let state;
+//    for(let i=0;i<array.length;i++){
+//         if(!state){
+//             if(array[i] > array[i+1]){
+//                 state = true
+//            }
+//            else if(array[i] < array[i+1]){
+//                state = false
+//            }
            
-        }
-        else {
-            break
-        } 
-   }
+//         }
+//         else {
+//             break
+//         } 
+//    }
     
-    for(let i=0;i<array.length -1;i++){
-        if(state){
-            if(array[i] < array[i+1]){
-               return console.log(false)
-            }
+//     for(let i=0;i<array.length -1;i++){
+//         if(state){
+//             if(array[i] < array[i+1]){
+//                return console.log(false)
+//             }
+//         }else{
+//             if(array[i] > array[i+1]){
+//                 console.log("Checking", array[i], i)
+//                return  console.log(false)
+//             }
+//         }
+//     }
+
+//     if(!state){
+//        console.log(true)
+//     }else{
+//         console.log(true)
+//     }
+
+// }
+
+
+// function MonotonicArrayOptimized(array){
+//     let increasing = true;
+//     let decreasing = true;
+
+//     for(let i=0;i<array.length -1;i++){
+//         if(array[i] < array[i+1]){
+//             decreasing = false
+//         }
+//         if(array[i] > array[i+1]){
+//             increasing = false
+//         }
+//     }
+
+//    console.log( increasing || decreasing )
+
+// }
+
+// MonotonicArrayOptimized( [1,2,3,5,1] )
+
+
+
+
+// function SpiralProblem(array){
+
+//     let result = []
+//     let startRow = 0;
+//     let endRow = array.length - 1;
+//     let startCol = 0;
+//     let endCol = array[0].length - 1;
+
+   
+//     while(startRow < endRow && startCol < endCol){
+//         for(let col = startRow  ; col <= endCol ; col++){
+//             result.push(array[startRow][col])
+//         }
+//         for(let row = startRow +1  ; row <= endRow ; row++){
+//             result.push(array[row][endCol])
+//         }
+//         for(let col = endCol -1 ; col>= startCol; col--){
+//             if(endRow > startRow){
+//                 result.push(array[endRow][col])
+//             }
+//         }
+//         for(let row = endRow -1 ; row > startRow ; row --){
+//             if(endCol > startCol){
+//                 result.push(array[row][startCol])
+//             }
+//         }
+//         startRow++
+//         startCol++
+//         endRow--
+//         endCol--
+//     }
+//     return result
+// }
+
+
+
+
+// SpiralProblem([
+//     [1, 2, 3, 4],
+//     [12, 13, 14, 5],
+//     [11, 16, 15, 6],
+//     [10, 9, 8, 7]
+//   ])
+
+
+
+// function getPeak(array){
+
+//     let currentPeak = 0
+//     let LongestPeak = 0
+
+//     for(let i=1;i<=array.length -2;i++){
+//         let ispeak = array[i-1] < array[i] && array[i+1] < array[i]
+       
+//         if(ispeak){
+//             currentPeak = getStreak(array, i)
+//             console.log('peak ', currentPeak)
+//             if(currentPeak > LongestPeak){
+//                 LongestPeak = currentPeak
+//             }
+//         }
+//     }
+//    console.log(LongestPeak)
+// }
+
+// function getStreak(array, i){
+//     console.log('yes', i)
+//     let left = i;
+//     let right = i;
+//     while(array[left-1] < array[left]){
+//         left--
+//     }
+//     while(array[right+1] < array[right]){
+//         right++
+//     }
+//     return right - left + 1
+// }
+
+// getPeak([1,3,2])
+
+
+
+// ================    Array Of Products =================
+
+function ArrayOfProducts(array){
+    let result = []
+    let output = []
+    let leftProduct = 1
+    let rightProduct = []
+    let product = 1;
+   
+    for(let i=0;i<array.length;i++){
+        output.push(leftProduct)
+        leftProduct = leftProduct * array[i]
+    }
+    
+    product = 1 
+    for(let i=array.length -1;i>0;i--){
+        if(i==array.length-1){
+            rightProduct.push(product)
         }else{
-            if(array[i] > array[i+1]){
-                console.log("Checking", array[i], i)
-               return  console.log(false)
-            }
+            product *= array[i+1]
+            rightProduct.push(product)
         }
     }
 
-    if(!state){
-       console.log(true)
-    }else{
-        console.log(true)
+    let start = 0;
+    let end = array.length -1 ;
+
+    for(let i=0;i<array.length;i++){
+        let pro = leftProduct[start] * rightProduct[end]
+        result.push(pro)
+        start++
+        end--
     }
 
+    return result
 }
 
-
-function MonotonicArrayOptimized(array){
-    let increasing = true;
-    let decreasing = true;
-
-    for(let i=0;i<array.length -1;i++){
-        if(array[i] < array[i+1]){
-            decreasing = false
-        }
-        if(array[i] > array[i+1]){
-            increasing = false
-        }
-    }
-
-   console.log( increasing || decreasing )
-
-}
-
-MonotonicArrayOptimized( [1,2,3,5,1] )
-
-
+let result = ArrayOfProducts([5,1,4,2])
+console.log(result)
 
 
 
