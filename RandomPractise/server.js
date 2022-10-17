@@ -1076,43 +1076,90 @@ const createServer = http.createServer()
 
 // ================    Array Of Products =================
 
-function ArrayOfProducts(array){
-    let result = []
-    let output = []
-    let leftProduct = 1
-    let rightProduct = []
-    let product = 1;
+// function ArrayOfProducts(array){
+//     let result = []
+//     let output = []
+//     let leftProduct = 1
+//     let rightProduct = []
+//     let product = 1;
    
-    for(let i=0;i<array.length;i++){
-        output.push(leftProduct)
-        leftProduct = leftProduct * array[i]
-    }
+//     for(let i=0;i<array.length;i++){
+//         output.push(leftProduct)
+//         leftProduct = leftProduct * array[i]
+//     }
     
-    product = 1 
-    for(let i=array.length -1;i>0;i--){
-        if(i==array.length-1){
-            rightProduct.push(product)
+//     product = 1 
+//     for(let i=array.length -1;i>0;i--){
+//         if(i==array.length-1){
+//             rightProduct.push(product)
+//         }else{
+//             product *= array[i+1]
+//             rightProduct.push(product)
+//         }
+//     }
+
+//     let start = 0;
+//     let end = array.length -1 ;
+
+//     for(let i=0;i<array.length;i++){
+//         let pro = leftProduct[start] * rightProduct[end]
+//         result.push(pro)
+//         start++
+//         end--
+//     }
+
+//     return result
+// }
+
+// let result = ArrayOfProducts([5,1,4,2])
+// console.log(result)
+
+
+
+// function FirstDublicateValue(array){
+
+//     let hashtable = {}
+//     for(let i=0;i<array.length;i++){
+//         if(hashtable[array[i]]){
+//           return array[i]
+//         }else{
+//             hashtable[array[i]] = true
+//         }
+//     }
+//     return -1
+// }
+
+// let result = FirstDublicateValue([2, 1, 5, 2, 3, 3, 4])
+
+// console.log('check result', result)
+
+
+// ==================== First Overlapping Array =======
+
+function OverlappingArray(array){
+
+    let sort = array.sort((a,b)=> a[0]-b[0])
+    let output = []
+    output.push(array[0])
+
+    for(let i=1;i<array.length;i++){
+        if(output[output.length -1][1] >= array[i][0]){
+            output[output.length -1]= [output[output.length -1][0], Math.max(output[output.length -1][1], array[i][1],)]
+          
         }else{
-            product *= array[i+1]
-            rightProduct.push(product)
+            output.push(array[i])
         }
     }
-
-    let start = 0;
-    let end = array.length -1 ;
-
-    for(let i=0;i<array.length;i++){
-        let pro = leftProduct[start] * rightProduct[end]
-        result.push(pro)
-        start++
-        end--
-    }
-
-    return result
+   console.log(output)
 }
 
-let result = ArrayOfProducts([5,1,4,2])
-console.log(result)
+OverlappingArray([[1, 2],[3, 5],[4, 7],[6, 8],[9, 10]])
+
+
+
+
+
+
 
 
 
