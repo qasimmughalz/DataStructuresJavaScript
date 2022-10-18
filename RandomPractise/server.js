@@ -1136,32 +1136,65 @@ const createServer = http.createServer()
 
 // ==================== First Overlapping Array =======
 
-function OverlappingArray(array){
+// function OverlappingArray(array){
 
-    let sort = array.sort((a,b)=> a[0]-b[0])
-    let output = []
-    output.push(array[0])
+//     let sort = array.sort((a,b)=> a[0]-b[0])
+//     let output = []
+//     output.push(array[0])
 
-    for(let i=1;i<array.length;i++){
-        if(output[output.length -1][1] >= array[i][0]){
-            output[output.length -1]= [output[output.length -1][0], Math.max(output[output.length -1][1], array[i][1],)]
+//     for(let i=1;i<array.length;i++){
+//         if(output[output.length -1][1] >= array[i][0]){
+//             output[output.length -1]= [output[output.length -1][0], Math.max(output[output.length -1][1], array[i][1],)]
           
-        }else{
-            output.push(array[i])
+//         }else{
+//             output.push(array[i])
+//         }
+//     }
+//    console.log(output)
+// }
+
+// OverlappingArray([[1, 2],[3, 5],[4, 7],[6, 8],[9, 10]])
+
+
+
+function FourNumberSum(incoming, target){
+
+    let array = incoming.sort((a,b)=> a-b)
+
+    let mySet = new Set()
+    let left =0; 
+    let right =0;
+    let sum =0;
+    let result = []
+
+    for(let i=0;i<array.length -1;i++){
+        for(j=i+1;j<array.length-1;j++){
+            left = j+1;
+            right = array.length -1
+            while(left<right){
+                sum = array[i]+array[j]+array[left]+array[right]
+                if(sum === target){
+                    let quad = [array[i], array[j], array[left],array[right]]
+                    mySet.add(quad)
+                    left++
+                }
+                else if(sum < target){
+                    left++
+                }
+                else if(sum > target){
+                    right--
+                }
+            }
         }
     }
-   console.log(output)
+   mySet.forEach(element => {
+    result.push(element)
+   })
+   return result
 }
 
-OverlappingArray([[1, 2],[3, 5],[4, 7],[6, 8],[9, 10]])
-
-
-
-
-
-
-
-
+const result = FourNumberSum([7, 6, 4, -1, 1, 2], 16)
+console.log(result)
 
 
 createServer.listen(PORT, () => `Listening to the Port ${PORT}`)
