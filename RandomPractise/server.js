@@ -1076,20 +1076,24 @@ const createServer = http.createServer()
 
 // ================    Array Of Products =================
 
+
 // function ArrayOfProducts(array){
 //     let result = []
-//     let output = []
-//     let leftProduct = 1
+//     let leftProduct = []
 //     let rightProduct = []
 //     let product = 1;
    
 //     for(let i=0;i<array.length;i++){
-//         output.push(leftProduct)
-//         leftProduct = leftProduct * array[i]
+//         if(i==0){
+//             leftProduct.push(product)
+//         }else{
+//             product *= array[i-1]
+//             leftProduct.push(product)
+//         }
 //     }
     
 //     product = 1 
-//     for(let i=array.length -1;i>0;i--){
+//     for(let i=array.length -1;i>=0;i--){
 //         if(i==array.length-1){
 //             rightProduct.push(product)
 //         }else{
@@ -1107,7 +1111,7 @@ const createServer = http.createServer()
 //         start++
 //         end--
 //     }
-
+//     console.log(leftProduct, rightProduct)
 //     return result
 // }
 
@@ -1157,44 +1161,190 @@ const createServer = http.createServer()
 
 
 
-function FourNumberSum(incoming, target){
+// function FourNumberSum(incoming, target){
 
-    let array = incoming.sort((a,b)=> a-b)
+//     let array = incoming.sort((a,b)=> a-b)
 
-    let mySet = new Set()
-    let left =0; 
-    let right =0;
-    let sum =0;
-    let result = []
+//     let mySet = new Set()
+//     let left =0; 
+//     let right =0;
+//     let sum =0;
+//     let result = []
 
-    for(let i=0;i<array.length -1;i++){
-        for(j=i+1;j<array.length-1;j++){
-            left = j+1;
-            right = array.length -1
-            while(left<right){
-                sum = array[i]+array[j]+array[left]+array[right]
-                if(sum === target){
-                    let quad = [array[i], array[j], array[left],array[right]]
-                    mySet.add(quad)
-                    left++
-                }
-                else if(sum < target){
-                    left++
-                }
-                else if(sum > target){
-                    right--
-                }
-            }
-        }
+//     for(let i=0;i<array.length -1;i++){
+//         for(j=i+1;j<array.length-1;j++){
+//             left = j+1;
+//             right = array.length -1
+//             while(left<right){
+//                 sum = array[i]+array[j]+array[left]+array[right]
+//                 if(sum === target){
+//                     let quad = [array[i], array[j], array[left],array[right]]
+//                     mySet.add(quad)
+//                     left++
+//                 }
+//                 else if(sum < target){
+//                     left++
+//                 }
+//                 else if(sum > target){
+//                     right--
+//                 }
+//             }
+//         }
+//     }
+//    mySet.forEach(element => {
+//     result.push(element)
+//    })
+//    return result
+// }
+
+// const result = FourNumberSum([7, 6, 4, -1, 1, 2], 16)
+// console.log(result)
+
+
+
+// function SubArraySort(array){
+
+//     let final = []
+//     let min = 0;
+//     let max = 0;
+//     let flag = false;
+
+//     for(let i=0;i<array.length;i++){
+//         if(array[i] > array[i+1]){
+//         flag = true
+//            min = Math.min(array[i], array[i+1])
+//            max = Math.max(array[i], array[i+1])
+//         }
+//     }
+//     if(flag){
+//         for(let i=0;i<array.length;i++){
+//             if(array[i] >= min){
+//                 final.push(i )
+//                 break
+//             }
+//         }
+    
+//         for(let i=array.length ;i>0;i--){
+//             if(array[i] <= max){
+//                 final.push(i)
+//                 break
+//             }
+//         }
+//         return final
+//     }else{
+//         return [-1,-1]
+//     }
+    
+// }
+
+// let result = SubArraySort([1, 2, 4, 7, 10, 11, 7, 12, 6, 7, 16, 18, 19])
+// console.log(result)
+
+
+
+//  function LargestRange(array){
+//     let min=array[0];
+//     let max=min;
+//    let  result = []
+//     let breakPoint = null
+//     let hashtable = {}
+
+//     for(let i=0;i<array.length;i++){
+        
+//       if(array[i] < min ){
+//             min = array[i]
+//       }
+//       if(array[i] > max){
+//           max = array[i]
+//       }
+  
+//       if(!hashtable[array[i]]){
+//             hashtable[array[i]] = true
+//         }
+//     }
+
+//     if(array.length === 1){
+//         return [array[0], array[0]]
+//     }
+  
+//        for(let i=min;i<=max;i++){
+//         if(!hashtable[i]){
+//             if(!breakPoint){
+//                 result.push([min, i-1])
+//                 breakPoint = i
+//             }
+//             if(breakPoint){
+//                 result.push([breakPoint +1, max])
+//                 breakPoint = 
+//                 i++
+//             }
+//         }
+//     }
+    
+//     let maxx = 0;
+//     let ans = null;
+//     for(let i=0;i<result.length;i++){
+//         let diff =result[i][1] - result[i][0]
+//         if(diff > maxx){
+//             ans = result[i]
+//         } 
+//     }
+//     if(ans){
+//         return ans
+//     }
+//     return [min, max]
+//  }
+
+//  let result = LargestRange( [8, 4, 2, 10, 3, 6, 7, 9, 1])
+// console.log(result)
+
+
+
+
+function ProductOFArray(array){
+
+    let product = 1;
+    let leftside = []
+    let rightSide = []
+    let output = []
+
+    // setting left side of the array 
+    for(let i=1;i<=array.length;i++){
+        leftside.push(product)  
+        product = product * array[i-1]
     }
-   mySet.forEach(element => {
-    result.push(element)
-   })
-   return result
+
+    // setting right side of the array 
+    product = 1;
+    for(let i=array.length-1;i>=0;i--){
+        
+        rightSide.push(product)
+        product = product * array[i]    
+    }
+
+
+    let pro = 1;
+    let left = 0;
+    let rightt = array.length -1;
+    for(let i=0;i<array.length;i++){
+        pro = leftside[left] * rightSide[rightt]
+        output.push(pro)
+        left++;
+        rightt --
+    }
+    return output
+
 }
 
-const result = FourNumberSum([7, 6, 4, -1, 1, 2], 16)
+let result = ProductOFArray([5,1,4,2])
 console.log(result)
+
+
+
+
+
+
+
 
 
 createServer.listen(PORT, () => `Listening to the Port ${PORT}`)
