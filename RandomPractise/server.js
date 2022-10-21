@@ -1300,44 +1300,71 @@ const createServer = http.createServer()
 
 
 
+// ====== Product of array without Self - Again Practise ===========
 
-function ProductOFArray(array){
 
-    let product = 1;
-    let leftside = []
-    let rightSide = []
-    let output = []
+// function ProductOFArray(array){
 
-    // setting left side of the array 
-    for(let i=1;i<=array.length;i++){
-        leftside.push(product)  
-        product = product * array[i-1]
-    }
+//     let product = 1;
+//     let leftside = []
+//     let rightSide = []
+//     let output = []
 
-    // setting right side of the array 
-    product = 1;
-    for(let i=array.length-1;i>=0;i--){
+//     // setting left side of the array 
+//     for(let i=1;i<=array.length;i++){
+//         leftside.push(product)  
+//         product = product * array[i-1]
+//     }
+//     // setting right side of the array 
+//     product = 1;
+//     for(let i=array.length-1;i>=0;i--){
         
-        rightSide.push(product)
-        product = product * array[i]    
-    }
+//         rightSide.push(product)
+//         product = product * array[i]    
+//     }
+//     let pro = 1;
+//     let left = 0;
+//     let rightt = array.length -1;
+//     for(let i=0;i<array.length;i++){
+//         pro = leftside[left] * rightSide[rightt]
+//         output.push(pro)
+//         left++;
+//         rightt --
+//     }
+//     return output
+
+// }
+
+// let result = ProductOFArray([5,1,4,2])
+// console.log(result)
 
 
-    let pro = 1;
-    let left = 0;
-    let rightt = array.length -1;
-    for(let i=0;i<array.length;i++){
-        pro = leftside[left] * rightSide[rightt]
-        output.push(pro)
-        left++;
-        rightt --
+
+function LowestGrade(score){
+    let length = score.length
+    let output = new Array(length).fill(1)
+
+    for(let i=1;i<score.length;i++){
+        if(score[i] > score[i-1]){
+            output[i] = Math.max(output[i] , output[i-1] + 1 )
+        }   
     }
-    return output
+
+    for(let i=length-2 ; i >= 0 ;i--){
+        if(score[i] > score[i+1]){
+            output[i] = Math.max(output[i] , output[i+1] + 1 )
+        }   
+    }
+
+    let data = output.reduce((a,b)=> a+b)
+    console.log(data)
+
+    
 
 }
 
-let result = ProductOFArray([5,1,4,2])
-console.log(result)
+LowestGrade([8,4,2,1,3,6,7,9,5])
+
 
 
 
