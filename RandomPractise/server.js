@@ -1340,30 +1340,201 @@ const createServer = http.createServer()
 
 
 
-function LowestGrade(score){
-    let length = score.length
-    let output = new Array(length).fill(1)
+// function LowestGrade(score){
+//     let length = score.length
+//     let output = new Array(length).fill(1)
 
-    for(let i=1;i<score.length;i++){
-        if(score[i] > score[i-1]){
-            output[i] = Math.max(output[i] , output[i-1] + 1 )
-        }   
-    }
+//     for(let i=1;i<score.length;i++){
+//         if(score[i] > score[i-1]){
+//             output[i] = Math.max(output[i] , output[i-1] + 1 )
+//         }   
+//     }
 
-    for(let i=length-2 ; i >= 0 ;i--){
-        if(score[i] > score[i+1]){
-            output[i] = Math.max(output[i] , output[i+1] + 1 )
-        }   
-    }
+//     for(let i=length-2 ; i >= 0 ;i--){
+//         if(score[i] > score[i+1]){
+//             output[i] = Math.max(output[i] , output[i+1] + 1 )
+//         }   
+//     }
 
-    let data = output.reduce((a,b)=> a+b)
-    console.log(data)
+//     let data = output.reduce((a,b)=> a+b)
+//     console.log(data)
 
     
 
+// }
+
+// LowestGrade([8,4,2,1,3,6,7,9,5])
+
+
+// function findClosestBuilding(array , req){
+//     let max = 0;
+    
+
+//     for(let i=0;i<array.length;i++){
+//         let final = {}
+//         req.forEach(element => {
+//                 final[element] = 0
+//         });
+        
+//         for(let j=0;j<array.length;j++){
+
+//             req.forEach(element => {
+//               if((array[j][element]) === true){
+//                     final[element]++
+//               }
+//         });
+//         }
+//         console.log(final)
+//     }
+// }
+
+// let blocks = [
+//     {
+//       "gym": false,
+//       "school": true,
+//       "store": false
+//     },
+//     {
+//       "gym": true,
+//       "school": false,
+//       "store": false
+//     },
+//     {
+//       "gym": true,
+//       "school": true,
+//       "store": false
+//     },
+//     {
+//       "gym": false,
+//       "school": true,
+//       "store": false
+//     },
+//     {
+//       "gym": false,
+//       "school": true,
+//       "store": true
+//     }
+//   ]
+
+//   let req = ['gym', 'store', 'school']
+
+// findClosestBuilding(blocks, req)
+
+
+
+
+
+
+
+// function getStringLength(string){
+//   let hashtable = {}
+//   for(let i=0;i<string.length;i++){
+//     if(!hashtable[string[i]]){
+//       hashtable[string[i]] = 1
+//     }else{
+//       hashtable[string[i]]++
+//     }
+//   }
+//   let result = ''
+//   Object.keys(hashtable).forEach(key => {
+//     result += `${hashtable[key]}${key}`
+//   })
+//   console.log(result)
+// }
+
+
+
+// getStringLength('AAAAAAAAAAAAABBCCCCDD')
+
+let blocks = [
+    {
+      "gym": false,
+      "school": true,
+      "store": false
+    },
+    {
+      "gym": true,
+      "school": false,
+      "store": false
+    },
+    {
+      "gym": true,
+      "school": true,
+      "store": false
+    },
+    {
+      "gym": false,
+      "school": true,
+      "store": false
+    },
+    {
+      "gym": false,
+      "school": true,
+      "store": true
+    }
+  ]
+
+  let req = ['gym', 'store', 'school']
+
+
+
+function FindBuilding(blocks, reqs){
+
+    let hashtable = {}
+    for(let i=0;i<blocks.length;i++){
+        let temp = {}
+        for(let j=0;j<blocks.length;j++){
+
+            reqs.forEach(element => {
+                if(blocks[j][element]){
+                    if(temp[element]){
+                        let min = Math.abs(i-j)
+                        if(temp[element] > min){
+                            temp[element] = min
+                        }
+                    }else{
+                        temp[element] = Math.abs(i-j)
+                    }
+                }       
+                  
+            });
+        }
+        hashtable[i] = temp
+    }
+  
+    
+    let keys = Object.keys(hashtable)
+
+    for(let i=0;i<keys.length;i++){
+      let val = Object.values(hashtable[i])
+      let max = Math.max(...val)
+      hashtable[i]= max
+    }
+    
+    let result =0;
+    let min = hashtable[1];
+    for(let i=0;i<keys.length;i++){
+        if(hashtable[i] < min){
+          min = hashtable[i]
+          result = i
+        }
+    }
+    
+    return result
+    
+
+
+
 }
 
-LowestGrade([8,4,2,1,3,6,7,9,5])
+FindBuilding(blocks, req)
+
+
+
+
+
+
+
 
 
 
